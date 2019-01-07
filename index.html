@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+	<style>
+	 td {
+	     text-align: center; vertical-align: middle;
+	 }
+	</style>
+
+    </head>
+    <body>
+
+	<h1>Nutrimium</h1>
+
+	<button id="btn-gen">Generate</button>
+	
+	<h2>Meal plan</h2>
+
+	<div id="plan-table"></div>
+
+    </body>
+    <script>
+
+     /* ========== CONSTANTS & GLOBALS ========== */
+     nbDays = 7;
+     nbMealPerDay = 4;
+     mealPlan = [];
+     recipes = ["R1", "R2", "R3", "R4", "R5"];
+
+     for (i = 0; i < nbDays; ++i) {
+         mealPlan[i] = [];
+     }
+
+     /* ========== FUNCTIONS ========== */
+     function pickRecipe() {
+	 min = 0;
+	 max = recipes.length - 1;
+	 x = Math.round(Math.random() * (max - min) + min);
+	 return recipes[x];
+     }
+
+     function generate() {
+	 for (var i = 0; i < nbDays; ++i) {
+	     for (var j = 0; j < nbMealPerDay; ++j) {
+		 var recipe = pickRecipe();
+		 mealPlan[i][j] = recipe;
+	     }
+	 }
+
+	 var myTable = "<table width='100%'><tr>"
+
+	 for (var i = 0; i < nbDays; ++i) {
+	     myTable += "<th height='25'>";
+	     myTable += "D" + i;
+	     myTable += "</th>";
+	 }
+
+	 for (var j = 0; j < nbMealPerDay; ++j) {
+	     myTable += "<tr>"
+	     for (var i = 0; i < nbDays; ++i) {
+		 myTable += "<td>"
+		 myTable += mealPlan[i][j];
+		 myTable += "</td>"
+	     }
+	     myTable += "</tr>";
+	 }
+	 myTable += "</table>";
+	 document.getElementById("plan-table").innerHTML = myTable;
+     }
+
+     
+     /* ========== EVENT LISTENERS ========== */
+     document.getElementById("btn-gen")
+	     .addEventListener("click", generate);
+
+    </script>
+
+
+</html>
